@@ -1,0 +1,28 @@
+# accounts.yaml
+accounts:
+  - token: 
+    court_1: 
+    time_1: 
+    court_2: 
+    time_2: 
+  - token: 
+    court_1: 
+    time_1: 
+    court_2: 
+    time_2: 
+  - token: 
+    court_1: 
+    time_1: 
+    court_2: 
+    time_2: 
+  - token: 
+    court_1: 
+    time_1: 
+    court_2: 
+    time_2: 
+
+config:
+  venueTypeId: 99f5f83b-2adc-41b6-8c98-901ced354551 # 东校球场编号
+  date: [2025, 4, 14]                 # 预订日期(year,month,day), 当前日期后3天
+  target_time: [22,0,0]           # 预订时间(hour,minute,second), 22点开始抢场
+  User_Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
