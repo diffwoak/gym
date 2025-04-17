@@ -7,8 +7,25 @@ import json
 from ruamel.yaml import YAML
 import shutil
 import os
+import requests
 
-def start_chrome_instance(port, user_dir):
+def start_chrome_instance(port, user_dir): # 修改，如果浏览器已打开，则无需操作
+    # 新增的实例检查逻辑
+    try:
+        # 尝试访问Chrome调试接口
+        debug_url = f"http://localhost:{port}/json/version"
+        response = requests.get(debug_url, timeout=0.5)
+        
+        # 如果响应包含浏览器信息，则说明实例已存在
+        if response.status_code == 200 and "Browser" in response.text:
+            print(f"port:{port}\t跳过启动")
+            return
+    except (requests.ConnectionError, requests.Timeout):
+        pass
+    except Exception as e:
+        print(f"⚠️ 实例检查异常: {str(e)}")
+
+    # 原有的启动逻辑
     command = [
         "start",
         "chrome",
@@ -16,6 +33,7 @@ def start_chrome_instance(port, user_dir):
         f"--user-data-dir={user_dir}"
     ]
     subprocess.Popen(command, shell=True)
+
 
 def generate_yaml(nums,target_date=(datetime.now() + timedelta(days=3)), target_time=[22, 0, 0]):
     # 生成日期（当前日期 +3 天）
@@ -117,7 +135,7 @@ def run_start():
         p.wait()
 
 if __name__ == '__main__':
-    num = 6
+    num = 2
     formatted_time = [22,0,0]
     target_time = int(datetime.now().replace(hour=formatted_time[0], minute=formatted_time[1],second=formatted_time[2]).timestamp())
     target_date=(datetime.now() + timedelta(days=3))
@@ -133,7 +151,7 @@ if __name__ == '__main__':
         current_dir = os.path.dirname(os.path.abspath(__file__))
         dir = os.path.join(current_dir, f"chrome_debug{i}")
         
-        start_chrome_instance(port, dir)
+        start_chrome_instance(port, dir) 
 
         chrome_options = Options()
         chrome_options.add_experimental_option("debuggerAddress", f"127.0.0.1:{port}")

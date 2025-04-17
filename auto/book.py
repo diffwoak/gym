@@ -1,6 +1,6 @@
 import requests
 import time
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import uuid
 import argparse
 import re
@@ -111,7 +111,8 @@ class GymBooker:
             return {}
         
         # 时间格式转换
-        booking_date = datetime.utcnow().isoformat(timespec='milliseconds') + 'Z'
+        # booking_date = datetime.utcnow().isoformat(timespec='milliseconds') + 'Z'
+        booking_date = datetime.now(timezone.utc).isoformat(timespec='milliseconds').replace('+00:00', 'Z')
         slot_date = venue_info['date']
         if venue_info['venueId2'] == None:
             return {
@@ -181,16 +182,16 @@ class GymBooker:
         count  = 0
         while True:
             if count > 10:
-                return False
+                return []
             if time.time() >= self.target_time - 0.05:
                 resp = self.session.post(
                     api_url,
                     json=payload,
                     headers=self.headers,
                 )
-                # if resp.status_code != 200:
-                #     print(f'[{self.user_id}]\t该账号不可预约')
-                #     return []
+                if resp.status_code != 200:
+                    print(f'[{self.user_id}]\t该账号不可预约')
+                    return []
                 if resp.json()['Code'] == 200:
                     VenueBookings = resp.json()['Result']['VenueBookings']
                     for VenueBooking in VenueBookings:
