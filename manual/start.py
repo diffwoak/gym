@@ -16,6 +16,7 @@ for acc in accounts:
     cmd = [
         "python", "book.py",
         "--token", acc['token'],
+        "--bot",acc['bot'],
         "--venueTypeId", config['venueTypeId'],
         "-c1", str(acc['court_1']),
         "-c2", str(acc['court_2']),

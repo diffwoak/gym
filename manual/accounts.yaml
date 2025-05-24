@@ -1,28 +1,21 @@
 # accounts.yaml
 accounts:
-  - token: 
-    court_1: 
-    time_1: 
-    court_2: 
-    time_2: 
-  - token: 
-    court_1: 
-    time_1: 
-    court_2: 
-    time_2: 
-  - token: 
-    court_1: 
-    time_1: 
-    court_2: 
-    time_2: 
-  - token: 
-    court_1: 
-    time_1: 
-    court_2: 
-    time_2: 
+  - token: eyJhbGciOiJSUzI1NiIsImtpZCI6IjI1QjExQTk3MDQ0Qjc5MUVGN0I2MDAzOTdDMzk2MDJDQzA1RjY5NTYiLCJ4NXQiOiJKYkVhbHdSTGVSNzN0Z0E1ZkRsZ0xNQmZhVlkiLCJ0eXAiOiJKV1QifQ.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiY2hlbnh5ODM1IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJjaGVueHk4MzUiLCJodHRwOi8vc2NpZW50aWEuY29tL2NsYWltcy9JbnN0aXR1dGlvbiI6IjRmYjM3ZTI4LTBhOTAtNGJiMC1iMGUwLWI3OThlY2U2ZjMyMCIsImh0dHA6Ly9zY2llbnRpYS5jb20vY2xhaW1zL0luc3RpdHV0aW9uTmFtZSI6Im1haWwuc3lzdSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImNoZW54eTgzNUBtYWlsLnN5c3UuZWR1LmNuIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZ2l2ZW5uYW1lIjoiY2hlbnh5ODM1IiwiaHR0cDovL3NjaWVudGlhLmNvbS9jbGFpbXMvU2NvcGUiOiJSQiIsIm5iZiI6MTc0NjY3MjI4OSwiZXhwIjoxNzQ2Njc1ODg5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdC8iLCJhdWQiOiJodHRwOi8vcmVzb3VyY2Vib29rZXJhcGkuY2xvdWRhcHAubmV0LyJ9.gJM1dHMHPrLX5qvPDSYBGD5o6apzN3zcYr4PylXjae9h9KK-imSRs7hTRNmuxGUiYUBuxFGq_IHxjjWVZouFi4k-iRIFMv1Ce9un2VGOhmx8a9BXwtZyG7unPNw61boQnQKm7B2Ps33QsonLPcS372XJ29jK5PqE6pJhYKurXBRfBtihC0o1Xj10jTxV4iO-XJrE1sQWL-Yzjq1xRavr6GzdNWwNtq6GaQJam6bcJHZSezsZwo5nPBi1PIA7o_pPqD5nan5vBTUb3JZ7MJnC5rGt3XHpGeY92FSmnKXdu_SZVSTvpBkrsCpQw41SodSrlbZAFzwSKCGcNQ3SWbhjZA
+    bot: AKwadqwAAAAAAAAAAAAAAABpw8StlgEAAKQv8i5bRgl8bI18wiz4SiyDSg9N
+    court_1: 1
+    time_1: 8
+    court_2: 2
+    time_2: 8
+  - token: eyJhbGciOiJSUzI1NiIsImtpZCI6IjI1QjExQTk3MDQ0Qjc5MUVGN0I2MDAzOTdDMzk2MDJDQzA1RjY5NTYiLCJ4NXQiOiJKYkVhbHdSTGVSNzN0Z0E1ZkRsZ0xNQmZhVlkiLCJ0eXAiOiJKV1QifQ.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicGFuZ2piMyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoicGFuZ2piMyIsImh0dHA6Ly9zY2llbnRpYS5jb20vY2xhaW1zL0luc3RpdHV0aW9uIjoiNGZiMzdlMjgtMGE5MC00YmIwLWIwZTAtYjc5OGVjZTZmMzIwIiwiaHR0cDovL3NjaWVudGlhLmNvbS9jbGFpbXMvSW5zdGl0dXRpb25OYW1lIjoibWFpbC5zeXN1IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoicGFuZ2piM0BtYWlsLnN5c3UuZWR1LmNuIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZ2l2ZW5uYW1lIjoicGFuZ2piMyIsImh0dHA6Ly9zY2llbnRpYS5jb20vY2xhaW1zL1Njb3BlIjoiUkIiLCJuYmYiOjE3NDY2NzMxNzMsImV4cCI6MTc0NjY3Njc3MywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3QvIiwiYXVkIjoiaHR0cDovL3Jlc291cmNlYm9va2VyYXBpLmNsb3VkYXBwLm5ldC8ifQ.klhq7cj1G9H7oM0epz6GWvmL3GlGx3CGbjaBCLDJ4LZ6ammHTI-iZNNuWOYPFG1zIozNMh5P0eO90JVnWmpf2sizur2mPF_GT5Wy-lkCfQoazVsai6K6sYdyAqObVSwAOMtSBB5c07N6EcH5ypaZXbi82Hq5wTnIHjEBfRG3baitplg5tDPbXRx0XBZeMdMlurk62DZgchUo9ZGpQYpJiIYGHE-uLqoDbptyabniWh-i0BC85vfKGo54U0RjZCfwO-f2AanjFpXocHBQe2llBduu4Hswkty-EiV5tMOkb--IeECOdJCQFoxymIBTFBq-shHn4ZoClIzJzjB_BbWvqQ
+    bot: AKwadqwAAAAAAAAAAAAAAADAANStlgEAAFo0KB18jDzAAA/q1rJ/Rx209fX5
+    court_1: 1
+    time_1: 8
+    court_2: 2
+    time_2: 8
 
 config:
   venueTypeId: 99f5f83b-2adc-41b6-8c98-901ced354551 # 东校球场编号
-  date: [2025, 4, 14]                 # 预订日期(year,month,day), 当前日期后3天
-  target_time: [22,0,0]           # 预订时间(hour,minute,second), 22点开始抢场
+  # venueTypeId: b3ad5cc5-6812-4ad4-ab99-4b8c2571ddba # 北校球场编号
+  date: [2025, 5, 10]                 # 预订日期(year,month,day), 当前日期后3天
+  target_time: [0,0,0]           # 预订时间(hour,minute,second), 22点开始抢场
   User_Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36

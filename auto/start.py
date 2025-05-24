@@ -37,7 +37,6 @@ def start_chrome_instance(port, user_dir): # 修改，如果浏览器已打开�
 
 def generate_yaml(nums,target_date=(datetime.now() + timedelta(days=3)), target_time=[22, 0, 0]):
     # 生成日期（当前日期 +3 天）
-    target_date = datetime.now() + timedelta(days=3)
     formatted_date = [target_date.year, target_date.month, target_date.day]
 
     # 构建 accounts 结构
@@ -45,6 +44,7 @@ def generate_yaml(nums,target_date=(datetime.now() + timedelta(days=3)), target_
     for _ in range(nums):
         account = {
             "token": "",
+            "bot": "",
             "court_1": "10",
             "time_1": "20",
             "court_2": "10",
@@ -79,7 +79,7 @@ def generate_yaml(nums,target_date=(datetime.now() + timedelta(days=3)), target_
             # indent=2
         )
 
-def update_token(tokens):
+def update_token(tokens, bots):
     """更新 YAML 文件的 token 字段并保留原有内容"""
     yaml = YAML()
     yaml.indent(mapping=2, sequence=4, offset=2)  # 保持缩进格式
@@ -94,8 +94,9 @@ def update_token(tokens):
         raise ValueError(f"Tokens数量 ({len(tokens)}) 与 accounts数量 ({len(accounts)}) 不匹配")
     
     # 按顺序填充 token
-    for account, token in zip(accounts, tokens):
+    for account, token, bot in zip(accounts, tokens, bots):
         account['token'] = token
+        account['bot'] = bot
     
     # 写回文件
     with open("accounts.yaml", 'w', encoding='utf-8') as f:
@@ -118,6 +119,7 @@ def run_start():
         cmd = [
             "python", "book.py",
             "--token", acc['token'],
+            "--bot", acc['bot'],
             "--venueTypeId", config['venueTypeId'],
             "-c1", str(acc['court_1']),
             "-c2", str(acc['court_2']),
@@ -135,7 +137,7 @@ def run_start():
         p.wait()
 
 if __name__ == '__main__':
-    num = 2
+    num = 5
     formatted_time = [22,0,0]
     target_time = int(datetime.now().replace(hour=formatted_time[0], minute=formatted_time[1],second=formatted_time[2]).timestamp())
     target_date=(datetime.now() + timedelta(days=3))
@@ -180,15 +182,25 @@ if __name__ == '__main__':
 
     print(f'{str(datetime.now())}\t获取用户token ...')
     tokens = []
+    bots = []
     for i in range(num):
+        # 获取token
         token = drivers[i].execute_script("return localStorage.getItem('scientia-session-authorization');")
+        # 提取 safeline_bot_token
+        cookies = driver.get_cookies()
+        safeline_token = next(
+            (cookie["value"] for cookie in cookies if cookie["name"] == "safeline_bot_token"), 
+            None
+        )
         tokens.append(json.loads(token)["access_token"])
+        bots.append(safeline_token)
+
 
         drivers[i].quit()
         # 输出文件夹
     
     print("写入accounts.yaml...")
-    update_token(tokens)
+    update_token(tokens, bots)
 
     print("运行订场脚本...")
     run_start()

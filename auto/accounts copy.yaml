@@ -1,32 +1,44 @@
 # accounts.yaml
 accounts:
-  - token: 
+  - token: ''
+    bot: ''
     court_1: '4'
     time_1: '16'
     court_2: '4'
     time_2: '17'
   - token: ''
+    bot: ''
     court_1: '3'
     time_1: '16'
     court_2: '3'
     time_2: '17'
   - token: ''
+    bot: ''
     court_1: '3'
-    time_1: '15'
+    time_1: '20'
+    court_2: '3'
+    time_2: '21'
+  - token: ''
+    bot: ''
+    court_1: '4'
+    time_1: '20'
     court_2: '4'
-    time_2: '15'
-  - token: ''
-    court_1: '10'
-    time_1: '20'
-    court_2: '10'
     time_2: '21'
   - token: ''
-    court_1: '9'
-    time_1: '20'
-    court_2: '9'
-    time_2: '21'
-  - token: ''
-    court_1: '10'
+    bot: ''
+    court_1: '3'
     time_1: '19'
-    court_2: '9'
+    court_2: '4'
     time_2: '19'
+config:
+  venueTypeId: 99f5f83b-2adc-41b6-8c98-901ced354551
+  date:
+    - 2025
+    - 5
+    - 21
+  target_time:
+    - 22
+    - 0
+    - 0
+  User_Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
+    like Gecko) Chrome/135.0.0.0 Safari/537.36

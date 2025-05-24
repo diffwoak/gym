@@ -1,9 +1,10 @@
 import requests
 import time
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import uuid
 import argparse
 import re
+import hashlib
 
 VenueIds={0:None,
           1:"8155aa2b-4cb0-4402-9d8a-4b5afcf4a19b",
@@ -42,6 +43,7 @@ def set_args():
     )
 
     parser.add_argument('--token', type=str, default=None, help='用户token信息')
+    parser.add_argument("--bot", type=str,default='',help='safeline_bot_token,机器身份验证')
     parser.add_argument('--venueTypeId',type=str, default='99f5f83b-2adc-41b6-8c98-901ced354551', help='校区球场id, 当前只支持东校区球场')
     parser.add_argument('-c1','--court_1', type=int, default=10, help='球场一编码, 默认10号场')
     parser.add_argument('-c2','--court_2', type=int, default=None, help='球场二编码, 默认为空')
@@ -54,13 +56,14 @@ def set_args():
     return parser.parse_args()              
 
 class GymBooker:
-    def __init__(self, token, venueTypeId, target_time, User_Agent):
+    def __init__(self, token, bot, venueTypeId, target_time, User_Agent):
         self.session = requests.Session()
         self.token = token
         self.venueTypeId = venueTypeId
         self.headers = {
             'Authorization': f'Bearer {token}',
             'User-Agent': User_Agent,
+            'cookie':f'safeline_bot_token={bot}',
         }
         self.target_time = target_time
         self.user_id = self._get_user_identity()
@@ -74,7 +77,6 @@ class GymBooker:
                     profile_url,
                     headers=self.headers,
                 )
-
         if resp.status_code == 200:
             return resp.json()['Identity']
         else:
@@ -104,14 +106,20 @@ class GymBooker:
     def generate_booking_payload(self, venue_info):
         """构建订场请求数据包"""
         # 生成合规UUID
-        booking_id = str(uuid.uuid4())
         identity = str(uuid.uuid4())
+        md5 = hashlib.md5()
+        timestamp = int(time.time())
+        input = 'SYSUBOOKING-'+identity+str(timestamp)
+        md5.update(input.encode('utf-8'))
+        hash_part = md5.hexdigest()
+        booking_id = f"{hash_part}.{timestamp}.51a0b28e19aba9952896f05f538a4a07"
+        # document.querySelector('div.main-container').__vue__.hashStr
         # 获取用户信息
         if self.user_id == 'f':
             return {}
-        
         # 时间格式转换
-        booking_date = datetime.utcnow().isoformat(timespec='milliseconds') + 'Z'
+        # booking_date = datetime.utcnow().isoformat(timespec='milliseconds') + 'Z'
+        booking_date = datetime.now(timezone.utc).isoformat(timespec='milliseconds').replace('+00:00', 'Z')
         slot_date = venue_info['date']
         if venue_info['venueId2'] == None:
             return {
@@ -124,7 +132,7 @@ class GymBooker:
                 "UpdatedAt": booking_date,
                 "Description": "东校园体育馆羽毛球场",
                 "IsCash": False,
-                "Participants": [],
+                "Participants": [],   # 这才是关键
                 "Status": "Accepted",
                 "VenueBookings": [
                     {
@@ -144,11 +152,11 @@ class GymBooker:
                 "BookingId": booking_id,
                 "VenueTypeId": self.venueTypeId,
                 "ActionedBy": self.user_id,
-                "Charge": 0, # venue_info['charge'],
+                "Charge": venue_info['charge'],
                 "CreatedAt": booking_date,
                 "UpdatedAt": booking_date,
-                "Description": "东校园体育馆羽毛球场",      # 好像不带该属性会出错
-                "IsCash":  True,#False,                        # 好像不带该属性会出错
+                "Description": "东校园体育馆羽毛球场", 
+                "IsCash":  False, 
                 "Participants": [],
                 "Status": "Accepted",
                 "VenueBookings": [
@@ -181,7 +189,7 @@ class GymBooker:
         count  = 0
         while True:
             if count > 10:
-                return False
+                return []
             if time.time() >= self.target_time - 0.05:
                 resp = self.session.post(
                     api_url,
@@ -189,7 +197,7 @@ class GymBooker:
                     headers=self.headers,
                 )
                 if resp.status_code != 200:
-                    print(f'[{self.user_id}]\t该账号不可预约')
+                    print(f'[{self.user_id}]\t该账号不可预约(状态过期/余额不足)')
                     return []
                 if resp.json()['Code'] == 200:
                     VenueBookings = resp.json()['Result']['VenueBookings']
@@ -204,7 +212,7 @@ class GymBooker:
                     res = resp.json()['Result']
                     print(f'[{self.user_id}]\t{res}')
                     if res == '该日期不可预约' or res == '系统繁忙，请重试。':
-                        time.sleep(0.1)
+                        time.sleep(0.08)
                         count = count + 1
                     elif res == '该时段不可预约，请选择别的时段。':
                         courts = self.get_available_slots(3)
@@ -268,7 +276,7 @@ if __name__ == '__main__':
         "date": args.date
     }
 
-    booker = GymBooker(args.token, args.venueTypeId, args.target_time, args.User_Agent)
+    booker = GymBooker(args.token, args.bot, args.venueTypeId, args.target_time, args.User_Agent)
 
     result = booker.book_court(venue_data)
     # 预约该时间段其他场地
@@ -280,6 +288,7 @@ if __name__ == '__main__':
                 "start1": f"{args.time_1:02d}:00",
                 "end1": f"{(args.time_1+1):02d}:00",
                 "venueId2": None,
+                "start2": f"{args.time_1:02d}:00",
                 "charge": 30,
                 "date": args.date
             }
@@ -292,6 +301,7 @@ if __name__ == '__main__':
                 "start1": f"{args.time_2:02d}:00",
                 "end1": f"{(args.time_2+1):02d}:00",
                 "venueId2": None,
+                "start2": f"{args.time_2:02d}:00",
                 "charge": 30,
                 "date": args.date
             }
