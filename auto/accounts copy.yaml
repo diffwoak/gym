@@ -2,40 +2,28 @@
 accounts:
   - token: ''
     bot: ''
-    court_1: '4'
-    time_1: '16'
-    court_2: '4'
-    time_2: '17'
-  - token: ''
-    bot: ''
-    court_1: '3'
-    time_1: '16'
-    court_2: '3'
-    time_2: '17'
-  - token: ''
-    bot: ''
-    court_1: '3'
+    court_1: '1'
     time_1: '20'
-    court_2: '3'
+    court_2: '1'
     time_2: '21'
   - token: ''
     bot: ''
-    court_1: '4'
+    court_1: '2'
     time_1: '20'
-    court_2: '4'
+    court_2: '2'
     time_2: '21'
   - token: ''
     bot: ''
-    court_1: '3'
+    court_1: '1'
     time_1: '19'
-    court_2: '4'
+    court_2: '2'
     time_2: '19'
 config:
   venueTypeId: 99f5f83b-2adc-41b6-8c98-901ced354551
   date:
     - 2025
-    - 5
-    - 21
+    - 6
+    - 18
   target_time:
     - 22
     - 0

@@ -137,7 +137,7 @@ def run_start():
         p.wait()
 
 if __name__ == '__main__':
-    num = 5
+    num = 4
     formatted_time = [22,0,0]
     target_time = int(datetime.now().replace(hour=formatted_time[0], minute=formatted_time[1],second=formatted_time[2]).timestamp())
     target_date=(datetime.now() + timedelta(days=3))
